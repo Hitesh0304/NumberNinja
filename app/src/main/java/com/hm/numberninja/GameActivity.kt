@@ -1,5 +1,6 @@
 package com.hm.numberninja
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -72,8 +73,18 @@ class GameActivity : AppCompatActivity() {
         buttonNext.setOnClickListener {
             pauseTimer()
             resetTimer()
-            continueGame()
             editTextAnswer.setText("")
+
+            if(userLife == 0) {
+                Toast.makeText(applicationContext, "Game Over", Toast.LENGTH_LONG).show()
+                val intent = Intent(this@GameActivity, ResultActivity::class.java)
+                intent.putExtra("score", userScore)
+                startActivity(intent)
+                finish()
+            }
+            else {
+                continueGame()
+            }
         }
     }
 
