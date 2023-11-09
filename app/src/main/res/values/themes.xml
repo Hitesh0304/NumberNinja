@@ -12,5 +12,11 @@
         <item name="colorPrimaryVariant">@color/blue</item>
     </style>
 
+    <style name="Base.Theme.ResultPage" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/ice_blue</item>
+        <item name="colorPrimaryVariant">@color/ice_blue</item>
+    </style>
+
     <style name="Theme.NumberNinja" parent="Base.Theme.NumberNinja" />
 </resources>
