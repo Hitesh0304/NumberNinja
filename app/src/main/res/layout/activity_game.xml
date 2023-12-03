@@ -83,7 +83,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Write answer here"
-        android:inputType="number"
+        android:inputType="number|numberSigned"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20sp" />

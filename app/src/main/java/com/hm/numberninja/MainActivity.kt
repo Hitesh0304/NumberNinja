@@ -20,7 +20,17 @@ class MainActivity : AppCompatActivity() {
         multiplication = findViewById(R.id.multiplicationButton)
 
         addition.setOnClickListener {
-            val intent = Intent(this@MainActivity, GameActivity::class.java)
+            val intent = GameActivity.newIntent(this, GameCategory.ADDITION)
+            startActivity(intent)
+        }
+
+        subtraction.setOnClickListener {
+            val intent = GameActivity.newIntent(this, GameCategory.SUBTRACTION)
+            startActivity(intent)
+        }
+
+        multiplication.setOnClickListener {
+            val intent = GameActivity.newIntent(this, GameCategory.MULTIPLICATION)
             startActivity(intent)
         }
     }

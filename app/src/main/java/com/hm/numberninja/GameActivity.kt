@@ -1,5 +1,6 @@
 package com.hm.numberninja
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,6 +32,18 @@ class GameActivity : AppCompatActivity() {
     private val startTimerInMillis: Long = 60000
     var timeLeftInMillis: Long = startTimerInMillis
 
+    private lateinit var category: GameCategory
+
+    companion object {
+        private const val CATEGORY = "category"
+
+        fun newIntent(context: Context, category: GameCategory): Intent {
+            return Intent(context, GameActivity::class.java).apply {
+                putExtra(CATEGORY, category.name)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -45,6 +58,7 @@ class GameActivity : AppCompatActivity() {
         buttonOk = findViewById(R.id.okButton)
         buttonNext = findViewById(R.id.nextButton)
 
+        category = intent.getStringExtra(CATEGORY)?.let { GameCategory.valueOf(it) }!!
         continueGame()
 
         buttonOk.setOnClickListener {
@@ -92,9 +106,22 @@ class GameActivity : AppCompatActivity() {
         val num1 = Random.nextInt(0, 100)
         val num2 = Random.nextInt(0, 100)
 
-        textQuestion.text = "$num1 + $num2"
+        when (category) {
+            GameCategory.ADDITION -> {
+                textQuestion.text = "$num1 + $num2"
+                correctAnswer = num1 + num2
+            }
 
-        correctAnswer = num1 + num2
+            GameCategory.SUBTRACTION -> {
+                textQuestion.text = "$num1 - $num2"
+                correctAnswer = num1 - num2
+            }
+
+            GameCategory.MULTIPLICATION -> {
+                textQuestion.text = "$num1 * $num2"
+                correctAnswer = num1 * num2
+            }
+        }
 
         startTimer()
     }
