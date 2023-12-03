@@ -22,7 +22,7 @@ class GameActivity : AppCompatActivity() {
     lateinit var editTextAnswer: EditText
 
     lateinit var buttonOk: Button
-    lateinit var buttonNext: Button
+    lateinit var buttonSkip: Button
 
     var correctAnswer = 0
     var userScore = 0
@@ -56,7 +56,7 @@ class GameActivity : AppCompatActivity() {
         textQuestion = findViewById(R.id.questionTextView)
         editTextAnswer = findViewById(R.id.answerEditText)
         buttonOk = findViewById(R.id.okButton)
-        buttonNext = findViewById(R.id.nextButton)
+        buttonSkip = findViewById(R.id.skipButton)
 
         category = intent.getStringExtra(CATEGORY)?.let { GameCategory.valueOf(it) }!!
         continueGame()
@@ -65,40 +65,45 @@ class GameActivity : AppCompatActivity() {
 
             val input = editTextAnswer.text.toString()
             if (input == "") {
-                Toast.makeText(applicationContext, "Please write an answer or click the next button", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Please write an answer or click the skip button", Toast.LENGTH_LONG).show()
             }
             else {
 
                 pauseTimer()
+                resetTimer()
                 val userAnswer = input.toInt()
 
                 if(userAnswer == correctAnswer) {
                     userScore = userScore + 10
-                    textQuestion.text = "Awesome! Your answer is correct"
+                    Toast.makeText(applicationContext, "Awesome! Your answer is correct", Toast.LENGTH_LONG).show()
                     textScore.text = userScore.toString()
+                    editTextAnswer.setText("")
+                    continueGame()
                 } else {
                     userLife--
-                    textQuestion.text = "Sorry, you answer is wrong"
+                    Toast.makeText(applicationContext, "Sorry, you answer is wrong", Toast.LENGTH_LONG).show()
                     textLife.text = userLife.toString()
+                    if(userLife == 0) {
+                        showResult()
+                    } else {
+                        editTextAnswer.setText("")
+                        continueGame()
+                    }
                 }
             }
         }
 
-        buttonNext.setOnClickListener {
+        buttonSkip.setOnClickListener {
             pauseTimer()
             resetTimer()
             editTextAnswer.setText("")
-
+            userLife--
             if(userLife == 0) {
-                Toast.makeText(applicationContext, "Game Over", Toast.LENGTH_LONG).show()
-                val intent = Intent(this@GameActivity, ResultActivity::class.java)
-                intent.putExtra("score", userScore)
-                startActivity(intent)
-                finish()
-            }
-            else {
+                showResult()
+            } else {
                 continueGame()
             }
+            textLife.text = userLife.toString()
         }
     }
 
@@ -141,6 +146,12 @@ class GameActivity : AppCompatActivity() {
                 userLife--
                 textLife.text = userLife.toString()
                 textQuestion.text = "Sorry, your time is up!"
+
+                if(userLife == 0) {
+                    showResult()
+                } else {
+                    continueGame()
+                }
             }
 
         }.start()
@@ -158,5 +169,13 @@ class GameActivity : AppCompatActivity() {
     fun resetTimer() {
         timeLeftInMillis = startTimerInMillis
         updateTimerText()
+    }
+
+    fun showResult() {
+        Toast.makeText(applicationContext, "Game Over", Toast.LENGTH_LONG).show()
+        val intent = ResultActivity.newIntent(this, category)
+        intent.putExtra("score", userScore)
+        startActivity(intent)
+        finish()
     }
 }

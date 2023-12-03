@@ -1,5 +1,6 @@
 package com.hm.numberninja
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,16 @@ class ResultActivity : AppCompatActivity() {
     lateinit var result: TextView
     lateinit var playAgain: Button
     lateinit var exit: Button
+
+    companion object {
+        private const val CATEGORY = "category"
+
+        fun newIntent(context: Context, category: GameCategory): Intent {
+            return Intent(context, ResultActivity::class.java).apply {
+                putExtra(CATEGORY, category.name)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,17 +35,16 @@ class ResultActivity : AppCompatActivity() {
         result.text = "Your score: " + score
 
         playAgain.setOnClickListener {
+            val category = intent.getStringExtra(ResultActivity.CATEGORY)?.let { GameCategory.valueOf(it) }!!
+            val intent = GameActivity.newIntent(this, category)
+            startActivity(intent)
+        }
+
+        exit.setOnClickListener {
             val intent = Intent(this@ResultActivity, MainActivity::class.java)
             startActivity(intent)
             //close the old activity
             finish()
-        }
-
-        exit.setOnClickListener {
-            val intent = Intent(Intent.ACTION_MAIN)
-            intent.addCategory(Intent.CATEGORY_HOME)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
         }
     }
 }

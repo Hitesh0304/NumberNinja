@@ -38,7 +38,6 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_shape"
-            android:backgroundTint="@null"
             android:text="Play again"
             android:textSize="20sp" />
 
@@ -49,8 +48,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_shape"
-            android:backgroundTint="@null"
-            android:text="Exit"
+            android:text="Home"
             android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>

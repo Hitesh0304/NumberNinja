@@ -106,14 +106,14 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/nextButton"
+            android:id="@+id/skipButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_shape"
             android:backgroundTint="@null"
-            android:text="Next"
+            android:text="Skip"
             android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>
