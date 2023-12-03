@@ -48,7 +48,8 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        supportActionBar!!.title = "Addition"
+        category = intent.getStringExtra(CATEGORY)?.let { GameCategory.valueOf(it) }!!
+        supportActionBar!!.title = category.title
 
         textScore = findViewById(R.id.scoreTextView)
         textLife = findViewById(R.id.lifeTextView)
@@ -58,7 +59,6 @@ class GameActivity : AppCompatActivity() {
         buttonOk = findViewById(R.id.okButton)
         buttonSkip = findViewById(R.id.skipButton)
 
-        category = intent.getStringExtra(CATEGORY)?.let { GameCategory.valueOf(it) }!!
         continueGame()
 
         buttonOk.setOnClickListener {

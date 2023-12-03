@@ -1,6 +1,8 @@
 package com.hm.numberninja
 
-enum class GameCategory {
-    ADDITION, SUBTRACTION, MULTIPLICATION
+enum class GameCategory(val title: String) {
+    ADDITION("Addition"),
+    SUBTRACTION("Subtraction"),
+    MULTIPLICATION("Multiplication")
 }
 
