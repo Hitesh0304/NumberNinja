@@ -36,7 +36,14 @@
         android:id="@+id/gameResultsButton"
         android:layout_width="250dp"
         android:layout_height="75dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:text="Game Results"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/themeButton"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:layout_margin="20dp"
         android:textSize="20sp" />
 </LinearLayout>
