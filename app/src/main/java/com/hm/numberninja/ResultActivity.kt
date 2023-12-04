@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class ResultActivity : AppCompatActivity() {
 
@@ -32,10 +34,13 @@ class ResultActivity : AppCompatActivity() {
         exit = findViewById(R.id.exitButton)
 
         val score = intent.getIntExtra("score", 0)
+        val category = intent.getStringExtra(ResultActivity.CATEGORY)?.let { GameCategory.valueOf(it) }!!
+
         result.text = "Your score: " + score
 
+        saveResult(score, category)
+
         playAgain.setOnClickListener {
-            val category = intent.getStringExtra(ResultActivity.CATEGORY)?.let { GameCategory.valueOf(it) }!!
             val intent = GameActivity.newIntent(this, category)
             startActivity(intent)
         }
@@ -46,5 +51,18 @@ class ResultActivity : AppCompatActivity() {
             //close the old activity
             finish()
         }
+    }
+
+    fun saveResult(score: Int, category: GameCategory) {
+
+        val dateFormat = SimpleDateFormat("dd MMMM, yyyy")
+        val dateString = dateFormat.format(Date())
+
+        val result = GameResult(score, dateString, category.title)
+        val manager = GameResultManager(this)
+        manager.saveGameResult(result)
+
+
+
     }
 }
