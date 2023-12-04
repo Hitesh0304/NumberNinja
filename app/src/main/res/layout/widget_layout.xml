@@ -23,7 +23,7 @@
         android:layout_below="@id/widgetTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/numbers"
+        android:src="@drawable/ic_launcher"
     />
 
 </RelativeLayout>

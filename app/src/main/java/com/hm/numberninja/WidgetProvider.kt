@@ -32,7 +32,7 @@ class WidgetProvider : AppWidgetProvider() {
             // Set some text on the widget
             views.setTextViewText(R.id.widgetTextView, "Number Ninja")
 
-            views.setImageViewResource(R.id.widgetImageView, R.drawable.numbers)
+            views.setImageViewResource(R.id.widgetImageView, R.drawable.ic_launcher)
 
             // Update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)
